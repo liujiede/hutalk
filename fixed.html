@@ -31,8 +31,6 @@
 
 <body>
     <script type="text/javascript">
-
-
     function mockRequest(tag) {
         return new Promise(function(res, rej) {
             var random = Math.ceil(Math.random() * 5000);
@@ -43,9 +41,15 @@
         });
     }
     var list = [];
-    function queueFetch(name){
+
+    function queueFetch(name) {
         list.push(mockRequest(name));
-        return Promise.all(list);
+        return new Promise(function(res, rej) {
+            Promise.all(list).then(function(tag) {
+                res(tag[tag.length - 1]);
+                list = [];
+            });
+        })
     }
 
     window.onload = function() {
