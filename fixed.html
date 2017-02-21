@@ -31,6 +31,8 @@
 
 <body>
     <script type="text/javascript">
+
+
     function mockRequest(tag) {
         return new Promise(function(res, rej) {
             var random = Math.ceil(Math.random() * 5000);
@@ -41,11 +43,15 @@
         });
     }
     var list = [];
+    function queueFetch(name){
+        list.push(mockRequest(name));
+        return Promise.all(list);
+    }
 
     window.onload = function() {
         document.querySelector('.btns').addEventListener('click', function(e) {
             if (e.target.tagName.toLowerCase() == 'input') {
-                mockRequest(e.target.value).then(tag => console.log(tag));
+                queueFetch(e.target.value).then(tag => console.log(tag));
             }
         }, false);
     }
