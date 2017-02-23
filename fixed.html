@@ -45,7 +45,7 @@
     function queueFetch(name) {
         list.push(mockRequest(name));
         return Promise.all(list).then(function(posts) {
-            if (posts.length === 10) { // 只允许一个并发间隔清除过期请求
+            if (posts.length === 10) { // 一个并发间隔清除过期请求
                 list.splice(0, posts.length);
             }
             return posts.pop();
