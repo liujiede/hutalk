@@ -43,8 +43,10 @@
     var list = [];
 
     function queueFetch(name) {
+        var length = list.length;
         list.push(mockRequest(name));
         return Promise.all(list).then(function(posts) {
+            list.splice(0, length);
             return posts.pop();
         });
     }
