@@ -44,7 +44,7 @@
 
     function queueFetch(name) {
         list.push(mockRequest(name));
-        return Promise.all(list).then(function(posts) {
+        return Promise.all(list).then((posts) => {
             list.shift();
             return posts.pop();
         });
