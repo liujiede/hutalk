@@ -44,12 +44,9 @@
 
     function queueFetch(name) {
         list.push(mockRequest(name));
-        return new Promise(function(res, rej) {
-            Promise.all(list).then(function(tag) {
-                res(tag[tag.length - 1]);
-                list = [];
-            });
-        })
+        return Promise.all(list).then(function(posts) {
+            return posts.pop();
+        });
     }
 
     window.onload = function() {
